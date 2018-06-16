@@ -1,0 +1,9 @@
+{
+    "name": "botnyx/tm-gettext",
+    "autoload": {
+        "psr-4": {"botnyx\\gettext\\": "src"}
+	},
+    "require": {
+        "php": ">=7.0"
+    }
+}
