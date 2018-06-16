@@ -81,7 +81,7 @@ class gettext{
 	private function consolidateCode(){
 		// Copy all files to a directory.
 		$teller = 0;
-		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->codeDir), RecursiveIteratorIterator::LEAVES_ONLY) as $file)
+		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->codeDir), \RecursiveIteratorIterator::LEAVES_ONLY) as $file)
 		{
 			if ($file->isFile()) {
 				copy($file->getPathname(), $this->trans_compiled."/code-".$teller."-".$file->getFilename() );
@@ -97,7 +97,7 @@ class gettext{
 		$loader = new \Twig_Loader_Filesystem($this->templatesDir);
 
 		// force auto-reload to always have the latest version of the template
-		$twig = new Twig_Environment($loader, array(
+		$twig = new \Twig_Environment($loader, array(
 			'cache' => $this->trans_cache,
 			'auto_reload' => true
 		));
@@ -109,7 +109,7 @@ class gettext{
 
 		$scannedfiles = [];
 		// iterate over all your templates
-		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->templatesDir), RecursiveIteratorIterator::LEAVES_ONLY) as $file)
+		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->templatesDir), \RecursiveIteratorIterator::LEAVES_ONLY) as $file)
 		{
 			// force compilation
 			
@@ -129,7 +129,7 @@ class gettext{
 	private function consolidateTemplates(){
 		// Copy all files to a directory.
 		$teller = 0;
-		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->trans_cache), RecursiveIteratorIterator::LEAVES_ONLY) as $file)
+		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->trans_cache), \RecursiveIteratorIterator::LEAVES_ONLY) as $file)
 		{
 			if ($file->isFile()) {
 				copy($file->getPathname(), $this->trans_compiled."/".$teller."-".$file->getFilename() );
@@ -140,7 +140,7 @@ class gettext{
 		$this->counter ($teller);
 		
 		// remove old files.
-		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->trans_cache), RecursiveIteratorIterator::LEAVES_ONLY) as $file)
+		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->trans_cache), \RecursiveIteratorIterator::LEAVES_ONLY) as $file)
 		{
 			if ($file->isFile()) {
 				unlink($file->getPathname());
