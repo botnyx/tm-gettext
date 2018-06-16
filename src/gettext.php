@@ -1,6 +1,6 @@
 <?php
 
-namespace botnyx\gettext
+namespace botnyx\gettext;
 
 class gettext{
 	
