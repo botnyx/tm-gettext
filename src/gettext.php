@@ -4,21 +4,25 @@ namespace botnyx\gettext;
 
 class gettext{
 	
-	function __construct($projectDir,$domain,$debug=true){
+	function __construct($paths,$domain,$debug=true){
 		
-		$this->tempDir 		= $projectDir."/tmp";
+		#$this->appsettings['paths'];
 		
-		$this->codeDir 		= $projectDir."/src";
 		
-		$this->templatesDir = $projectDir."/templates";
+		$this->tempDir 		= $paths['DIR'];// $projectDir."/tmp";
 		
-		$this->localesDir 	= $projectDir."/locales";
+		$this->codeDir 		= $paths['APPDIR'];
+		
+		$this->templatesDir = $paths['TEMPLATEDIR'] ;//$projectDir."/templates";
+		
+		$this->localesDir 	= $paths['DIR']."/locales";
 		
 		$this->domain = $domain;
 		
 		$this->logdata = array();
 		// 
 		$this->debug = $debug;
+		
 		
 		// check tempdir.
 		if(!file_exists($this->tempDir)){
