@@ -23,7 +23,6 @@ class gettext{
 		// 
 		$this->debug = $debug;
 		
-		
 		// check tempdir.
 		if(!file_exists($this->tempDir)){
 			echo "tmpDir is nonExistent!  (".$this->tempDir.")\n";
@@ -65,8 +64,14 @@ class gettext{
 	}
 	
 	public function getTranslationFile($withCode=false){
+		
+		$locale='en_US.utf8';
+		setlocale(LC_ALL,$locale);
+		putenv('LC_ALL='.$locale);
+		
 		$this->fileCount = 0;
 		$this->generateTemplateCache();
+		//echo "we have ".count($this->scannedfiles)." in templatecache.";
 		$this->consolidateTemplates();
 		if ($withCode) $this->consolidateCode();
 		
@@ -98,6 +103,8 @@ class gettext{
 	}
 	
 	private function generateTemplateCache(){
+		
+		//echo $this->trans_cache;
 		$loader = new \Twig_Loader_Filesystem($this->templatesDir);
 
 		// force auto-reload to always have the latest version of the template
@@ -182,13 +189,14 @@ class gettext{
 		//xgettext --default-domain=messages -p ./locale --from-code=UTF-8 -n --omit-header -L PHP /tmp/cache/*.php
 		$this->log( "Parsing ".$this->fileCount." files with xgettext. ");
 		
-		$cmd = "xgettext --default-domain=".$this->domain." -p ".$this->localesDir." --from-code=UTF-8 -n --omit-header -L PHP ".$this->trans_compiled."/*.php";
-		#echo "\n";
+		$cmd = "xgettext --default-domain=".$this->domain." --force-po -p ".$this->localesDir." --from-code=UTF-8 -n --omit-header -L PHP ".$this->trans_compiled."/*.php";
+		#echo "\n<pre>";
 		#print_r($cmd);
 		#echo "\n";
 		exec($cmd,$out,$retval);
 		$this->log( "Parsing done.");
-		
+		#var_dump($retval);
+		#var_dump($out);
 		$filename = $this->domain.".po";
 		$stamp = date("Y-m-d"); //time();
 		
