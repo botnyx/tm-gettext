@@ -189,7 +189,7 @@ class gettext{
 		//xgettext --default-domain=messages -p ./locale --from-code=UTF-8 -n --omit-header -L PHP /tmp/cache/*.php
 		$this->log( "Parsing ".$this->fileCount." files with xgettext. ");
 		
-		$cmd = "xgettext --default-domain=".$this->domain." --force-po -p ".$this->localesDir." --from-code=UTF-8 -n --omit-header -L PHP ".$this->trans_compiled."/*.php";
+		$cmd = "xgettext --default-domain=".$this->domain." --add-comments=notes --force-po -p ".$this->localesDir." --from-code=UTF-8 -n --omit-header -L PHP ".$this->trans_compiled."/*.php";
 		#echo "\n<pre>";
 		#print_r($cmd);
 		#echo "\n";
